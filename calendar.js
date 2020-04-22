@@ -42,3 +42,15 @@ $(function () {
 });
 
 
+const submitBtn = document.getElementById("submitBtn")
+const fromInput = document.getElementById("from")
+const toInput =document.getElementById("to")
+
+submitBtn.addEventListener("click", function(event){
+    event.preventDefault();
+    console.log(fromInput.value);
+    console.log(toInput.value);
+})
+
+
+
