@@ -84,3 +84,57 @@ function filterForCampsites(rec) {
 		}
 	}
 }
+
+
+
+
+// Creat State Dropdown Function  
+$("placeholderBtnState").click(function(){
+	function renderStateDropdown(){
+		$("<select>").addClass("select")
+			.attr("id","stateSelect")
+			.appendTo("#placeholder-div");
+		}
+	function renderSubmitBtn(){
+		$("<button>").addClass("button")
+			.attr("type","submit")
+			.attr("id","submitBtn")
+			.appendTo("#placeholder-div");
+		}
+
+	var states = ["AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"];
+	for (var i = 0; i < states.length; i++) {
+		$("<option>").text(states[i])
+			.attr("value", states[i])
+			.appendTo($("#stateSelect"));
+        }
+});
+
+//  Create Name Input Function
+$("#placeholderBtnName").click(function(){
+	function renderInput(){
+		$("<input>").addClass("input")
+			.attr("type","text")
+			.attr("placeholder","Search by Name")
+			.attr("id","nameInput")
+			.appendTo("#placeholder-div");
+	}
+	function renderSubmitBtn(){
+		$("<button>").addClass("button")
+			.attr("type","submit")
+			.attr("id","submitBtn")
+			.appendTo("#placeholder-div");
+		}
+});
+
+// UserInput Return
+$("#submitBtn").click(function(){
+	var userInput = $("#nameInput");
+	var name = userInput.val();
+	// Run the search by Name function
+
+	var userSelect = $("stateSelect");
+	var state = userSelect.val();
+	// Run the search by State function
+});
+
