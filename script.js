@@ -10,23 +10,37 @@ jQuery.ajaxPrefilter(function(options) {
 
 $(document).ready(function() {
 
+	$("#state").click(function(){
+		renderStateDropdown();
+		renderSubmitBtn();
+	});
+
+	$("#name").click(function(){
+		renderInput();
+		renderSubmitBtn();
+	});
+
 	// Replace state with query selector for dropdown
-	var state = "KS";
+	// var state = "KS";
 	// Replace park name with query selector for keyword input
-	var name = "Tuttle Creek Cove";
+	// var name = "Tuttle Creek Cove";
 
 	// Replace placeholderBtn with submit button ID
-	$("#placeholderBtnState").on("click", function(e) {
+	$("#submitBtn").on("click", function(e) {
 		e.preventDefault();
+		var userSelect = $("#stateSelect");
+		var state = userSelect.val();
 		$("#placeholder-div").empty();
 
 		searchState(state, 0);
 	});
 
-	$("#placeholderBtnName").on("click", function(e) {
+	$("#submitBtn").on("click", function(e) {
 		e.preventDefault();
+		var userInput = $("#nameInput");
+		var name = userInput.val();
 		$("#placeholder-div").empty();
-
+	
 		searchParkName(name, 0);
 	});
 });
@@ -89,7 +103,7 @@ function filterForCampsites(rec) {
 
 
 // Creat State Dropdown Function  
-$("placeholderBtnState").click(function(){
+
 	function renderStateDropdown(){
 		$("<select>").addClass("select")
 			.attr("id","stateSelect")
@@ -108,10 +122,10 @@ $("placeholderBtnState").click(function(){
 			.attr("value", states[i])
 			.appendTo($("#stateSelect"));
         }
-});
+
 
 //  Create Name Input Function
-$("#placeholderBtnName").click(function(){
+
 	function renderInput(){
 		$("<input>").addClass("input")
 			.attr("type","text")
@@ -124,17 +138,6 @@ $("#placeholderBtnName").click(function(){
 			.attr("type","submit")
 			.attr("id","submitBtn")
 			.appendTo("#placeholder-div");
-		}
-});
+	}
 
-// UserInput Return
-$("#submitBtn").click(function(){
-	var userInput = $("#nameInput");
-	var name = userInput.val();
-	// Run the search by Name function
-
-	var userSelect = $("stateSelect");
-	var state = userSelect.val();
-	// Run the search by State function
-});
 
