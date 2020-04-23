@@ -10,12 +10,14 @@ jQuery.ajaxPrefilter(function(options) {
 
 $(document).ready(function() {
 
-	$("#state").click(function(){
+	$("[href=\"#state\"]").click(function(){
+		$("#inputs").empty();
 		renderStateDropdown();
 		renderSubmitBtn();
 	});
-
-	$("#name").click(function(){
+	
+	$("[href=\"#name\"]").click(function(){
+		$("#inputs").empty();
 		renderInput();
 		renderSubmitBtn();
 	});
@@ -26,21 +28,19 @@ $(document).ready(function() {
 	// var name = "Tuttle Creek Cove";
 
 	// Replace placeholderBtn with submit button ID
-	$("#submitBtn").on("click", function(e) {
+	$("#inputs").on("submit", function(e) {
 		e.preventDefault();
-		var userSelect = $("#stateSelect");
-		var state = userSelect.val();
+		var state = $("#stateSelect").val();
+		
 		$("#placeholder-div").empty();
-
 		searchState(state, 0);
 	});
 
-	$("#submitBtn").on("click", function(e) {
+	$("#inputs").on("submit", function(e) {
 		e.preventDefault();
-		var userInput = $("#nameInput");
-		var name = userInput.val();
+		var name = $("#nameInput").val();
+		
 		$("#placeholder-div").empty();
-	
 		searchParkName(name, 0);
 	});
 });
@@ -99,45 +99,33 @@ function filterForCampsites(rec) {
 	}
 }
 
-
-
-
 // Creat State Dropdown Function  
+function renderStateDropdown(){
+	$("<select>").addClass("select")
+		.attr("id","stateSelect")
+		.appendTo("#inputs");
 
-	function renderStateDropdown(){
-		$("<select>").addClass("select")
-			.attr("id","stateSelect")
-			.appendTo("#placeholder-div");
+		var states = ["AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"];
+		for (var i = 0; i < states.length; i++) {
+			$("<option>").text(states[i])
+				.attr("value", states[i])
+				.appendTo($("#stateSelect"));
 		}
-	function renderSubmitBtn(){
-		$("<button>").addClass("button")
-			.attr("type","submit")
-			.attr("id","submitBtn")
-			.appendTo("#placeholder-div");
-		}
+}
 
-	var states = ["AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"];
-	for (var i = 0; i < states.length; i++) {
-		$("<option>").text(states[i])
-			.attr("value", states[i])
-			.appendTo($("#stateSelect"));
-        }
-
+function renderSubmitBtn(){
+	$("<button>").addClass("button")
+		.attr("type","submit")
+		.attr("id","submitBtn")
+		.text("submit")
+		.appendTo("#inputs");
+}
 
 //  Create Name Input Function
-
-	function renderInput(){
-		$("<input>").addClass("input")
-			.attr("type","text")
-			.attr("placeholder","Search by Name")
-			.attr("id","nameInput")
-			.appendTo("#placeholder-div");
-	}
-	function renderSubmitBtn(){
-		$("<button>").addClass("button")
-			.attr("type","submit")
-			.attr("id","submitBtn")
-			.appendTo("#placeholder-div");
-	}
-
-
+function renderInput(){
+	$("<input>").addClass("input")
+		.attr("type","text")
+		.attr("placeholder","Search by Name")
+		.attr("id","nameInput")
+		.appendTo("#inputs");
+}
