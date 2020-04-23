@@ -10,23 +10,37 @@ jQuery.ajaxPrefilter(function(options) {
 
 $(document).ready(function() {
 
+	$("#state").click(function(){
+		renderStateDropdown();
+		renderSubmitBtn();
+	});
+
+	$("#name").click(function(){
+		renderInput();
+		renderSubmitBtn();
+	});
+
 	// Replace state with query selector for dropdown
-	var state = "KS";
+	// var state = "KS";
 	// Replace park name with query selector for keyword input
-	var name = "Tuttle Creek Cove";
+	// var name = "Tuttle Creek Cove";
 
 	// Replace placeholderBtn with submit button ID
-	$("#placeholderBtnState").on("click", function(e) {
+	$("#submitBtn").on("click", function(e) {
 		e.preventDefault();
+		var userSelect = $("#stateSelect");
+		var state = userSelect.val();
 		$("#placeholder-div").empty();
 
 		searchState(state, 0);
 	});
 
-	$("#placeholderBtnName").on("click", function(e) {
+	$("#submitBtn").on("click", function(e) {
 		e.preventDefault();
+		var userInput = $("#nameInput");
+		var name = userInput.val();
 		$("#placeholder-div").empty();
-
+	
 		searchParkName(name, 0);
 	});
 });
@@ -84,3 +98,46 @@ function filterForCampsites(rec) {
 		}
 	}
 }
+
+
+
+
+// Creat State Dropdown Function  
+
+	function renderStateDropdown(){
+		$("<select>").addClass("select")
+			.attr("id","stateSelect")
+			.appendTo("#placeholder-div");
+		}
+	function renderSubmitBtn(){
+		$("<button>").addClass("button")
+			.attr("type","submit")
+			.attr("id","submitBtn")
+			.appendTo("#placeholder-div");
+		}
+
+	var states = ["AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"];
+	for (var i = 0; i < states.length; i++) {
+		$("<option>").text(states[i])
+			.attr("value", states[i])
+			.appendTo($("#stateSelect"));
+        }
+
+
+//  Create Name Input Function
+
+	function renderInput(){
+		$("<input>").addClass("input")
+			.attr("type","text")
+			.attr("placeholder","Search by Name")
+			.attr("id","nameInput")
+			.appendTo("#placeholder-div");
+	}
+	function renderSubmitBtn(){
+		$("<button>").addClass("button")
+			.attr("type","submit")
+			.attr("id","submitBtn")
+			.appendTo("#placeholder-div");
+	}
+
+
