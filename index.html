@@ -5,12 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
     <title>Campsite Finder</title>
+    <link rel="stylesheet" href="./mybulma/css/mystyles.css">
 </head>
 <body>
-    
+    <nav class="navbar"> 
+        <!--For Mobile View-->
+        <div class=" is-hidden-tablet"> 
+            <img src="./assets/images/project-1-logos.png" class="navbar-item is-block">
+            <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+              
+            <div class="navbar-menu" id="navMenu">
+            <a class='navbar-item' href="#index">Home</a>
+            <a class='navbar-item' href="#name">Search By Name</a>
+            <a class='navbar-item' href="#city">Search By City</a>
+            <a class='navbar-item' href="#county">Search By County</a>
+            <a class='navbar-item' href="#state">Search By State</a>
+            <a class='navbar-item' href="#region">Search By Region</a>
+            <a class='navbar-item' href="#my-campsites">My Campsites</a>
+          </div>
+          </div>
+        
+        <!--For Desktop View-->
+        <div class="menu is-block is-hidden-touch"> 
+            <img src="./assets/images/project-1-logos.png" class="navbar-item is-block">
+           
+            <ul class="menu-list title ">
+                <a class='navbar-item' href="#index">Home</a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">Find A Campsite</a>
+                        <div class="navbar-dropdown">
+                            <a class='navbar-item' href="#name">Search By Name</a>
+                            <a class='navbar-item' href="#city">Search By City</a>
+                            <a class='navbar-item' href="#county">Search By County</a>
+                            <a class='navbar-item' href="#state">Search By State</a>
+                            <a class='navbar-item' href="#region">Search By Region</a>
+                        </div>
+                </div>
+                <a class='navbar-item' href="#my-campsites">My Campsites</a>
+              </ul>
+          </div>
+          
+          <div class="menu is-hidden-mobile is-hidden-desktop"> <!--For Tablet View-->
+            <img src="./assets/images/project-1-logos.png" class="navbar-item is-block">
+              <ul class="menu-list title">
+                <a class='navbar-item' href="#index">Home</a>
+                <a class='navbar-item' href="#name">Search By Name</a>
+                <a class='navbar-item' href="#city">Search By City</a>
+                <a class='navbar-item' href="#county">Search By County</a>
+                <a class='navbar-item' href="#state">Search By State</a>
+                <a class='navbar-item' href="#region">Search By Region</a>
+                <a class='navbar-item' href="#my-campsites">My Campsites</a>
+              </ul>
+          </div>
+    </nav>
+
+
+
+
+
+    <footer class="footer">
+        <div class="has-text-centered">
+      <img src="./assets/images/project-1-logos.png" alt="Our Logo">
+      <p><strong>Campsite Finder</strong><br> 2020 © Daniel Huhn-Moody, Sang Bae & Angel Schultz.</p>
+      <div class="navbar-menu is-inline-flex is-hidden-touch">
+        <a class='navbar-item' href="#index">Home</a>
+        <a class='navbar-item' href="#name">Search By Name</a>
+        <a class='navbar-item' href="#city">Search By City</a>
+        <a class='navbar-item' href="#county">Search By County</a>
+        <a class='navbar-item' href="#state">Search By State</a>
+        <a class='navbar-item' href="#region">Search By Region</a>
+        <a class='navbar-item' href="#my-campsites">My Campsites</a>
+      </div>
+      <nav class="breadcrumb is-hidden-desktop is-centered" aria-label="breadcrumbs">
+        <ul>
+          <li><a href="#index">Home</a></li>
+          <li><a href="#mobile-search">Find a Campsite</a></li>
+          <li><a href="#my-campsites">My Campsites</a></li>
+        </ul>
+      </nav>
+      
+    </div>
+    </footer>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.6/lib/draggable.bundle.js"></script>
     <script src="script.js"></script>
+    <script src="./mybulma/js/script.js"></script>
     
 </body>
 </html>

@@ -1,0 +1,120 @@
+@charset "utf-8";
+@import "../node_modules/bulma/bulma.sass";
+
+
+// Import a Google Font
+@import url("https://use.typekit.net/yiw5nbu.css");
+
+// Set your brand colors
+$crimson: #6E2727;
+$red-brown: #A99EA1;
+$navy-blue: #132B39; 
+$light-grey: #A6ADB4; 
+$dark-grey: #707070; 
+$off-white: #EBEDED; 
+
+// Update Bulma's global variables
+$family-sans-serif: "Trade Gothic Next LT Pro Regular", sans-serif;
+$title-family: 'Bebas Kai Regular', sans-serif; 
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+
+
+
+// Update some of Bulma's component variables
+$body-background-color: $red-brown;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+$navbar-background-color: transparent; 
+$navbar-item-img-max-height: 1rem;
+$navbar-burger-color: $crimson; 
+$navbar-item-active-color: $crimson;
+$navbar-item-hover-color: $crimson; 
+$navbar-item-color: $navy-blue; 
+$navbar-item-hover-background-color: $dark-grey;
+$section-padding: 1rem; 
+$footer-background-color: $light-grey;
+$navbar-dropdown-arrow: $crimson;
+$navbar-dropdown-item-hover-color: $crimson;
+
+
+
+// Custom shit
+
+    
+    .is-hidden-mobile {
+        margin: auto 0;
+        width: fit-content;
+        display: inline-block;
+        background-color: $light-grey;
+        img {
+            height: 15em;
+            margin: auto 0;
+        }
+      .title a {
+        color: $navy-blue;
+        background-color: $off-white;
+        border: 1px solid $grey-lighter;
+      }
+    }
+
+   .is-hidden-tablet {
+    padding-top: 0.5em;
+    margin: 0;
+    background-color: $light-grey;
+    img {
+        height: 13em;
+        margin: 0 auto;
+    }
+    .navbar-burger {
+        margin: 0 auto;
+    }
+}
+   .is-hidden-touch {
+    padding-top: 0.5em;
+    margin: auto 0;
+    background-color: $light-grey;
+    border-radius: 1em;
+    border: 1px solid $grey-light;
+    width: fit-content;
+    img {
+        height: 18em;
+        margin: auto 0;
+    }
+    .title a {
+        color: $navy-blue;
+    }
+    .navbar-dropdown a {
+        font-size: 160%; 
+    }
+    }
+
+.footer {
+    background-color: $light-grey;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1em; 
+    img {
+        width: 7em;
+        height: auto;
+    }
+    .navbar-menu {
+        border: none; 
+    }
+}
+
+
+
+// Import only what you need from Bulma
+@import "../node_modules/bulma/sass/utilities/_all.sass";
+@import "../node_modules/bulma/sass/base/_all.sass";
+@import "../node_modules/bulma/sass/elements/button.sass";
+@import "../node_modules/bulma/sass/elements/container.sass";
+@import "../node_modules/bulma/sass/elements/title.sass";
+@import "../node_modules/bulma/sass/form/_all.sass";
+@import "../node_modules/bulma/sass/components/navbar.sass";
+@import "../node_modules/bulma/sass/layout/hero.sass";
+@import "../node_modules/bulma/sass/layout/section.sass";
