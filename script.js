@@ -13,7 +13,7 @@ $(document).ready(function() {
 	// Replace state with query selector for dropdown
 	var state = "KS";
 	// Replace park name with query selector for keyword input
-	var name = "Overlook Park";
+	var name = "Tuttle Creek Cove";
 
 	// Replace placeholderBtn with submit button ID
 	$("#placeholderBtnState").on("click", function(e) {
