@@ -12,11 +12,22 @@ $(document).ready(function() {
 
 	// Replace state with query selector for dropdown
 	var state = "KS";
+	// Replace park name with query selector for keyword input
+	var name = "Overlook Park";
 
 	// Replace placeholderBtn with submit button ID
-	$("#placeholderBtn").on("click", function(e) {
+	$("#placeholderBtnState").on("click", function(e) {
 		e.preventDefault();
+		$("#placeholder-div").empty();
+
 		searchState(state, 0);
+	});
+
+	$("#placeholderBtnName").on("click", function(e) {
+		e.preventDefault();
+		$("#placeholder-div").empty();
+
+		searchParkName(name, 0);
 	});
 });
 
@@ -32,21 +43,44 @@ function searchState(state, offset) {
 		var meta = facilities.METADATA;
 		
 		// Filter through facilities looking for only campsites
-		for (var i = 0; i < rec.length; i++) {
-			if (rec[i].FacilityTypeDescription === "Campground") {
-
-				// Replace placeholder-div with list target div
-				$("#placeholder-div").append($("<article>").addClass("put-classes-here")
-														   .attr("data-facilityID", rec[i].FacilityID)
-														   .text(rec[i].FacilityName));
-			}
-		}
-		console.log(meta.RESULTS.CURRENT_COUNT, meta.RESULTS.TOTAL_COUNT);
-
+		filterForCampsites(rec);
+		
 		// Check if all results are avalible, if not, print more
 		if ((meta.RESULTS.CURRENT_COUNT + offset) < meta.RESULTS.TOTAL_COUNT) {
 			offset += meta.SEARCH_PARAMETERS.LIMIT;
 			searchState(state, offset);
 		}
 	});
+}
+
+// Function to search campsites with name/keyword/description/stay limit
+function searchParkName(name, offset) {
+	$.ajax({
+		url: "https://ridb.recreation.gov/api/v1/facilities?query=" + name + "&offset=" + offset + "&full=true&apikey=" + apiKey,
+		method: "GET",
+		crossDomain: true
+	}).then(function(facilities) {
+		console.log(facilities);
+		var rec = facilities.RECDATA;
+		var meta = facilities.METADATA;
+
+		filterForCampsites(rec);
+		
+		if ((meta.RESULTS.CURRENT_COUNT + offset) < meta.RESULTS.TOTAL_COUNT) {
+			offset += meta.SEARCH_PARAMETERS.LIMIT;
+			searchParkName(name, offset);
+		}
+	})
+}
+
+function filterForCampsites(rec) {
+	for (var i = 0; i < rec.length; i++) {
+		if (rec[i].FacilityTypeDescription === "Campground") {
+	
+			// Replace placeholder-div with list target div
+			$("#placeholder-div").append($("<article>").addClass("put-classes-here")
+													   .attr("data-facilityID", rec[i].FacilityID)
+													   .text(rec[i].FacilityName));
+		}
+	}
 }
