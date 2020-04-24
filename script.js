@@ -11,6 +11,11 @@ jQuery.ajaxPrefilter(function(options) {
 
 $(document).ready(function() {
 
+	$("[href=\"#index\"]").click(function() {
+		$("#inputs").empty();
+		$("#placeholder-div").empty();
+	})
+
 	$("[href=\"#state\"]").click(function() {
 		$("#inputs").empty();
 		renderStateDropdown();
@@ -27,35 +32,30 @@ $(document).ready(function() {
 		$("#inputs").empty();
 		renderInputCity();
 		renderSubmitBtn();
-	})
-
-	// Replace state with query selector for dropdown
-	// var state = "KS";
-	// Replace park name with query selector for keyword input
-	// var name = "Tuttle Creek Cove";
-
+	});
+	
 	// Replace placeholderBtn with submit button ID
 	$("#inputs").on("submit", function(e) {
 		e.preventDefault();
 		
 		if ($("#nameInput").val()) {
 			var name = $("#nameInput").val();
-		
+			
 			$("#placeholder-div").empty();
 			searchParkName(name, 0);
-
+			
 		} else if ($("#cityInput").val()) {
 			var city = $("#cityInput").val();
-
+			
 			$.ajax({
 				url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + openweathermapApiKey,
 				method: "GET"
 			}).then(function(weatherData) {				
 				lat = weatherData.coord.lat;
 				lon = weatherData.coord.lon;
-				searchCity(lat, lon, 0);
+				searchCoords(lat, lon, 0);
 			})
-
+			
 		} else {
 			var state = $("#stateSelect").val();
 			
@@ -63,6 +63,17 @@ $(document).ready(function() {
 			searchState(state, 0);
 		}
 	});
+	
+		$("[href=\"#near-me\"]").click(function() {
+			$("#inputs").empty();
+			$("#placeholder-div").empty();
+
+			navigator.geolocation.getCurrentPosition(getCoords);
+			function getCoords(position) {				
+				searchCoords(position.coords.latitude, position.coords.longitude, 0);
+			}
+
+		});
 });
 
 // Function to search campsites in a specific state
@@ -107,7 +118,7 @@ function searchParkName(name, offset) {
 }
 
 // Function to search campsites near input city
-function searchCity(lat, lon, offset) {
+function searchCoords(lat, lon, offset) {
 	$.ajax({
 		url: "https://ridb.recreation.gov/api/v1/facilities?latitude=" + lat + "&longitude=" + lon + "&offset=" + offset + "&full=true&apikey=" + ridbApiKey,
 		method: "GET",
