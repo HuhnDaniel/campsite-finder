@@ -7114,42 +7114,56 @@ label.panel-block {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem; }
 
-.is-hidden-mobile {
+#tablet {
   margin: auto 0;
-  width: fit-content;
-  display: inline-block;
   background-color: #A6ADB4; }
-  .is-hidden-mobile img {
-    height: 15em;
-    margin: auto 0; }
-  .is-hidden-mobile .title a {
-    color: #132B39;
-    background-color: #EBEDED;
-    border: 1px solid #dbdbdb; }
+  #tablet img {
+    height: 20em;
+    margin: 0 auto; }
+  #tablet .menu-list {
+    margin: 0 auto;
+    width: fit-content; }
+    #tablet .menu-list a {
+      color: #132B39;
+      background-color: #EBEDED;
+      border: 1px solid #dbdbdb;
+      margin: 0; }
+    #tablet .menu-list .navbar-item {
+      margin: 0;
+      padding: 0.5em; }
+    #tablet .menu-list .navbar-burger {
+      padding: 1em;
+      width: auto;
+      height: auto; }
 
-.is-hidden-tablet {
+#mobile {
   padding-top: 0.5em;
   margin: 0;
   background-color: #A6ADB4; }
-  .is-hidden-tablet img {
-    height: 13em;
+  #mobile img {
+    height: 20em;
     margin: 0 auto; }
-  .is-hidden-tablet .navbar-burger {
+  #mobile .navbar-burger {
     margin: 0 auto; }
 
-.is-hidden-touch {
+#desktop {
   padding-top: 0.5em;
-  margin: auto 0;
+  margin: 0 auto;
   background-color: #A6ADB4;
   border-radius: 1em;
   border: 1px solid #b5b5b5;
-  width: fit-content; }
-  .is-hidden-touch img {
-    height: 18em;
-    margin: auto 0; }
-  .is-hidden-touch .title a {
-    color: #132B39; }
-  .is-hidden-touch .navbar-dropdown a {
+  width: 100%;
+  padding-right: 1em; }
+  #desktop img {
+    height: 10em;
+    margin: 0 auto; }
+  #desktop .menu-list {
+    margin: 0 auto;
+    width: fit-content; }
+    #desktop .menu-list a {
+      margin: 0;
+      color: #132B39; }
+  #desktop .navbar-dropdown a {
     font-size: 160%; }
 
 .footer {
@@ -7904,7 +7918,7 @@ a.has-text-danger:hover, a.has-text-danger:focus {
   font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important; }
 
 .is-family-sans-serif {
-  font-family: "Trade Gothic Next LT Pro Regular", sans-serif !important; }
+  font-family: trade-gothic-next, sans-serif !important; }
 
 .is-family-monospace {
   font-family: monospace !important; }
@@ -9018,7 +9032,7 @@ a.has-text-danger:hover, a.has-text-danger:focus {
 
 .title {
   color: #363636;
-  font-family: "Bebas Kai Regular", sans-serif;
+  font-family: bebas-kai, sans-serif;
   font-size: 2rem;
   font-weight: 600;
   line-height: 1.125; }
@@ -10462,7 +10476,7 @@ a.navbar-item,
 .navbar-link:not(.is-arrowless) {
   padding-right: 2.5em; }
   .navbar-link:not(.is-arrowless)::after {
-    border-color: #6E2727;
+    border-color: #3273dc;
     margin-top: -0.375em;
     right: 1.125em; }
 

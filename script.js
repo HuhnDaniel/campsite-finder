@@ -117,7 +117,7 @@ function renderSubmitBtn(){
 	$("<button>").addClass("button")
 		.attr("type","submit")
 		.attr("id","submitBtn")
-		.text("submit")
+		.text("Submit")
 		.appendTo("#inputs");
 }
 
