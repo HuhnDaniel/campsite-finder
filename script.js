@@ -163,6 +163,10 @@ function populateCampsiteInfo(identification) {
 		console.log(campground);
 		$(".hero").html("<h1 class=\"title is-large\">" + campground.FacilityName + "</h1>");
 
+		$(".hero").append($("<p>").html(campground.FacilityDescription));
+
+		var addr = campground.FACILITYADDRESS[0];
+		$(".hero").append($("<p>").text("Address: " + addr.FacilityStreetAddress1 + " " + addr.AddressStateCode + ", " + addr.AddressCountryCode + " " + addr.PostalCode));
 	})
 }
 
