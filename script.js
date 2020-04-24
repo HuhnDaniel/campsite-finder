@@ -1,6 +1,6 @@
 var ridbApiKey = "dd9db9b8-cd8a-43be-906b-60b309490362";
 var openweathermapApiKey = "40c8ddef7d6dcf0fa45ee70ad6205851";
-
+var myListArray = [];
 // Prefilter to allow access to protected HTTPS urls
 // In ajax calls, add parameter crossDomain: true to enable
 jQuery.ajaxPrefilter(function(options) {
@@ -70,6 +70,12 @@ $(document).ready(function() {
 			
 			searchState(state, 0);
 		}
+	});
+	// click function call for draggable
+	$("#result").on("click",".dragItem",function(event){
+		// $("#dragItem").click(function(){
+		event.preventDefault();
+		draggable();
 	});
 	
 	$("[href=\"#near-me\"]").click(function() {
@@ -152,7 +158,7 @@ function filterForCampsites(rec) {
 	for (var i = 0; i < rec.length; i++) {
 		if (rec[i].FacilityTypeDescription === "Campground") {
 	
-			$("#results").append($("<li>").addClass("column is-5")
+			$("#results").append($("<li>").addClass("column is-5 dragItem")
 													   .attr("data-facilityID", rec[i].FacilityID)
 													   .text(rec[i].FacilityName));
 		}
@@ -222,3 +228,22 @@ function renderInputCity() {
 	field.html('<label class="label">City</label>'); 
 	field.append(input).appendTo('#inputs'); 
 }
+
+
+// drag to my campSite
+function draggable() {
+    $(".dragItem").draggable({
+		snap: ".dropSave" 
+	});
+    $(".dropSave").droppable({
+      drop: function( event, ui ) {
+		var listName = $(this).text();
+		myListArray.unshift(listName);
+		myListArray = Array.from(new Set(myListArray));
+		localStorage.setItem("date",JSON.stringify(myListArray));	
+
+		// $("dragItem").remove();
+      }
+    });
+  }
+
