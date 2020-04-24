@@ -48,9 +48,8 @@ $(document).ready(function() {
 			var city = $("#cityInput").val();
 
 			$.ajax({
-				url: "api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + openweathermapApiKey,
-				method: "GET",
-				crossDomain: true
+				url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + openweathermapApiKey,
+				method: "GET"
 			}).then(function(weatherData) {				
 				lat = weatherData.coord.lat;
 				lon = weatherData.coord.lon;
@@ -95,7 +94,6 @@ function searchParkName(name, offset) {
 		method: "GET",
 		crossDomain: true
 	}).then(function(facilities) {
-		console.log(facilities);
 		var rec = facilities.RECDATA;
 		var meta = facilities.METADATA;
 
@@ -108,8 +106,23 @@ function searchParkName(name, offset) {
 	})
 }
 
+// Function to search campsites near input city
 function searchCity(lat, lon, offset) {
-	console.log(lat, lon);
+	$.ajax({
+		url: "https://ridb.recreation.gov/api/v1/facilities?latitude=" + lat + "&longitude=" + lon + "&offset=" + offset + "&full=true&apikey=" + ridbApiKey,
+		method: "GET",
+		crossDomain: true
+	}).then(function(facilities) {
+		var rec = facilities.RECDATA;
+		var meta = facilities.METADATA;
+
+		filterForCampsites(rec);
+		
+		if ((meta.RESULTS.CURRENT_COUNT + offset) < meta.RESULTS.TOTAL_COUNT) {
+			offset += meta.SEARCH_PARAMETERS.LIMIT;
+			searchCity(lat, lon, offset);
+		}
+	})
 }
 
 function filterForCampsites(rec) {
