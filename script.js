@@ -46,9 +46,16 @@ $(document).ready(function() {
 
 		} else if ($("#cityInput").val()) {
 			var city = $("#cityInput").val();
-		
-			$("#placeholder-div").empty();
-			searchCity(city, 0);
+
+			$.ajax({
+				url: "api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + openweathermapApiKey,
+				method: "GET",
+				crossDomain: true
+			}).then(function(weatherData) {				
+				lat = weatherData.coord.lat;
+				lon = weatherData.coord.lon;
+				searchCity(lat, lon, 0);
+			})
 
 		} else {
 			var state = $("#stateSelect").val();
@@ -101,8 +108,8 @@ function searchParkName(name, offset) {
 	})
 }
 
-function searchCity(city, offset) {
-	console.log(city);
+function searchCity(lat, lon, offset) {
+	console.log(lat, lon);
 }
 
 function filterForCampsites(rec) {
