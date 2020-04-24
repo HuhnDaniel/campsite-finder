@@ -10,7 +10,7 @@
 <body>
     <nav class="navbar"> 
         <!--For Mobile View-->
-        <div class=" is-hidden-tablet"> 
+        <div class=" is-hidden-tablet" id="mobile"> 
             <img src="./assets/images/project-1-logos.png" class="navbar-item is-block">
             <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
                 <span aria-hidden="true"></span>
@@ -29,13 +29,13 @@
           </div>
         
         <!--For Desktop View-->
-        <div class="menu is-block is-hidden-touch"> 
+        <div class="navbar-menu is-block is-hidden-touch" id="desktop"> 
             <img src="./assets/images/project-1-logos.png" class="navbar-item is-block">
            
-            <ul class="menu-list title ">
+            <ul class="menu-list is-flex title">
                 <a class='navbar-item' href="#index">Home</a>
                 <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">Find A Campsite</a>
+                    <a class="navbar-link is-arrowless">Find A Campsite</a>
                         <div class="navbar-dropdown">
                             <a class='navbar-item' href="#name">Search By Name</a>
                             <a class='navbar-item' href="#city">Search By City</a>
@@ -46,22 +46,39 @@
                 <a class='navbar-item' href="#my-campsites">My Campsites</a>
               </ul>
           </div>
-           <!--For Tablet View-->
-          <div class="menu is-hidden-mobile is-hidden-desktop">
+          
+          <div class="menu  is-hidden-mobile is-hidden-desktop" id="tablet"> <!--For Tablet View-->
             <img src="./assets/images/project-1-logos.png" class="navbar-item is-block">
-              <ul class="menu-list title">
+              <ul class="menu-list title is-flex">
                 <a class='navbar-item' href="#index">Home</a>
+
+                <a role="button" class="navbar-burger navbar-item " data-target="navMenu" aria-label="menu" aria-expanded="false">
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                </a>
+
                 <a class='navbar-item' href="#name">Search By Name</a>
                 <a class='navbar-item' href="#city">Search By City</a>
                 <a class='navbar-item' href="#state">Search By State</a>
                 <a class='navbar-item' href="#near-me">Search Near Me</a>
                 <a class='navbar-item' href="#my-campsites">My Campsites</a>
+
               </ul>
+              
           </div>
     </nav>
 
-    <form id="inputs"></form>
-    <div id="placeholder-div"></div>
+    <form id="inputs" class="column" type="text"></form>
+    <div id="index">
+      <section class="hero ">
+        <h1 class="title is-large">
+          Campsite of the Day
+        </h1>
+
+        
+      </section>
+    </div>
 
     <footer class="footer">
         <div class="has-text-centered">

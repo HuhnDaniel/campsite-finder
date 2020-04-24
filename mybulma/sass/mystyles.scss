@@ -14,8 +14,8 @@ $dark-grey: #707070;
 $off-white: #EBEDED; 
 
 // Update Bulma's global variables
-$family-sans-serif: "Trade Gothic Next LT Pro Regular", sans-serif;
-$title-family: 'Bebas Kai Regular', sans-serif; 
+$family-sans-serif: trade-gothic-next, sans-serif;
+$title-family: bebas-kai, sans-serif; 
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 
@@ -35,55 +35,72 @@ $navbar-item-color: $navy-blue;
 $navbar-item-hover-background-color: $dark-grey;
 $section-padding: 1rem; 
 $footer-background-color: $light-grey;
-$navbar-dropdown-arrow: $crimson;
 $navbar-dropdown-item-hover-color: $crimson;
-
 
 
 // Custom shit
 
     
-    .is-hidden-mobile {
+    #tablet {
         margin: auto 0;
-        width: fit-content;
-        display: inline-block;
         background-color: $light-grey;
         img {
-            height: 15em;
-            margin: auto 0;
+            height: 20em;
+            margin: 0 auto;
         }
-      .title a {
+        .menu-list {
+            margin: 0 auto;
+            width: fit-content;
+        a {
         color: $navy-blue;
         background-color: $off-white;
-        border: 1px solid $grey-lighter;
+        border: 1px solid $grey-lighter; 
+        margin: 0;
+        }
+        .navbar-item {
+            margin: 0;
+            padding: 0.5em;
+        }
+        .navbar-burger {
+            padding: 1em;
+            width: auto;
+            height: auto;
+        }
       }
     }
+    
 
-   .is-hidden-tablet {
+   #mobile {
     padding-top: 0.5em;
     margin: 0;
     background-color: $light-grey;
     img {
-        height: 13em;
+        height: 20em;
         margin: 0 auto;
     }
     .navbar-burger {
         margin: 0 auto;
     }
 }
-   .is-hidden-touch {
+   #desktop {
     padding-top: 0.5em;
-    margin: auto 0;
+    margin: 0 auto;
     background-color: $light-grey;
     border-radius: 1em;
     border: 1px solid $grey-light;
-    width: fit-content;
+    width: 100%;
+    padding-right: 1em; 
     img {
-        height: 18em;
-        margin: auto 0;
+        height: 10em;
+        margin: 0 auto; 
     }
-    .title a {
-        color: $navy-blue;
+    .menu-list {
+        margin: 0 auto;
+        width: fit-content;
+        a {
+            margin: 0;
+            color: $navy-blue;
+        }
     }
     .navbar-dropdown a {
         font-size: 160%; 
