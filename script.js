@@ -72,8 +72,7 @@ $(document).ready(function() {
 		}
 	});
 	// click function call for draggable
-	$("#result").on("click",".dragItem",function(event){
-		// $("#dragItem").click(function(){
+	$("#form-container").on("click",".dragItem",function(event){
 		event.preventDefault();
 		draggable();
 	});
@@ -233,16 +232,16 @@ function renderInputCity() {
 // drag to my campSite
 function draggable() {
     $(".dragItem").draggable({
-		snap: ".dropSave" 
+		
 	});
     $(".dropSave").droppable({
       drop: function( event, ui ) {
-		var listName = $(this).text();
+		var listName = $("this").text();
 		myListArray.unshift(listName);
 		myListArray = Array.from(new Set(myListArray));
 		localStorage.setItem("date",JSON.stringify(myListArray));	
-
-		// $("dragItem").remove();
+		console.log(myListArray);
+		
       }
     });
   }
