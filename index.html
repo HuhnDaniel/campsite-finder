@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./mybulma/css/mystyles.css">
 </head>
 <body>
+  <div class="container">
     <nav class="navbar"> 
         <!--For Mobile View-->
         <div class=" is-hidden-tablet" id="mobile"> 
@@ -57,27 +58,40 @@
                   <span aria-hidden="true"></span>
                   <span aria-hidden="true"></span>
                 </a>
-
-                <a class='navbar-item' href="#name">Search By Name</a>
-                <a class='navbar-item' href="#city">Search By City</a>
-                <a class='navbar-item' href="#state">Search By State</a>
-                <a class='navbar-item' href="#near-me">Search Near Me</a>
-                <a class='navbar-item' href="#my-campsites">My Campsites</a>
-
               </ul>
+
+                <div class="navbar-menu" id="navMenu">
+                  <a class='navbar-item' href="#index">Home</a>
+                  <a class='navbar-item' href="#name">Search By Name</a>
+                  <a class='navbar-item' href="#city">Search By City</a>
+                  <a class='navbar-item' href="#state">Search By State</a>
+                  <a class='navbar-item' href="#near-me">Search Near Me</a>
+                  <a class='navbar-item' href="#my-campsites">My Campsites</a>
+                </div>
+              
               
           </div>
     </nav>
 
-    <form id="inputs" class="column" type="text"></form>
+    
     <div id="index">
-        <section class="hero">
+        <section class="hero column">
             <h1 class="title is-large">
                 Campsite of the Day
             </h1>        
         </section>
     </div>
 
+    <!--Made change so this was under page header-->
+
+    <div id="form-container" class="container is-block">
+      <form id="inputs" class="" type="text"></form>
+      <div id="results" class="is-hidden">
+      </div>
+    </div>
+    
+
+  </div> <!--end of container-->
     <footer class="footer">
         <div class="has-text-centered">
       <img src="./assets/images/project-1-logos.png" alt="Our Logo">

@@ -39,7 +39,10 @@ $navbar-dropdown-item-hover-color: $crimson;
 
 
 // Custom shit
-
+    .container {
+        margin: 0 auto;
+        height: auto;
+    }
     
     #tablet {
         margin: auto 0;
@@ -109,9 +112,9 @@ $navbar-dropdown-item-hover-color: $crimson;
 
 .footer {
     background-color: $light-grey;
-    position: fixed;
-    bottom: 0;
     width: 100%;
+    position: absolute;
+    bottom: 0;
     margin: 0 auto;
     padding: 1em; 
     img {
@@ -121,6 +124,37 @@ $navbar-dropdown-item-hover-color: $crimson;
     .navbar-menu {
         border: none; 
     }
+}
+
+.hero {
+    h1 {
+        margin: 0 auto;
+        color: $crimson;
+    }
+}
+
+#inputs {
+    margin: auto 0;
+    width: fit-content; 
+    position: relative; 
+    left: 20%; 
+    .field {
+        margin: 0 auto;
+    }
+}
+
+#results {
+    background-color: $dark-grey;
+    color: $off-white;
+    width: 15em;
+    height: 15em;
+    position: absolute;
+    border: $light-grey 1px solid;
+    right: 20%; 
+    top: 30%;
+    margin: 0;
+    padding: 2em;
+    padding-top: 1em;
 }
 
 
