@@ -13,23 +13,29 @@ $(document).ready(function() {
 
 	$("[href=\"#index\"]").click(function() {
 		$("#inputs").empty();
-		$("#placeholder-div").empty();
+		$(".hero").html("<h1 class=\"title is-large\">Campsite of the Day</h1>");
 	})
 
 	$("[href=\"#state\"]").click(function() {
 		$("#inputs").empty();
+		$(".hero").html("<h1 class=\"title is-large\">Search by State</h1>");
+
 		renderStateDropdown();
 		renderSubmitBtn();
 	});
 	
 	$("[href=\"#name\"]").click(function() {
 		$("#inputs").empty();
+		$(".hero").html("<h1 class=\"title is-large\">Search by name</h1>");
+
 		renderInputName();
 		renderSubmitBtn();
 	});
 
 	$("[href=\"#city\"]").click(function() {
 		$("#inputs").empty();
+		$(".hero").html("<h1 class=\"title is-large\">Search by City</h1>");
+
 		renderInputCity();
 		renderSubmitBtn();
 	});
@@ -41,7 +47,6 @@ $(document).ready(function() {
 		if ($("#nameInput").val()) {
 			var name = $("#nameInput").val();
 			
-			$("#placeholder-div").empty();
 			searchParkName(name, 0);
 			
 		} else if ($("#cityInput").val()) {
@@ -59,21 +64,24 @@ $(document).ready(function() {
 		} else {
 			var state = $("#stateSelect").val();
 			
-			$("#placeholder-div").empty();
 			searchState(state, 0);
 		}
 	});
 	
-		$("[href=\"#near-me\"]").click(function() {
-			$("#inputs").empty();
-			$("#placeholder-div").empty();
+	$("[href=\"#near-me\"]").click(function() {
+		$("#inputs").empty();
+		$(".hero").html("<h1 class=\"title is-large\">Campsites Near You</h1>");
+		navigator.geolocation.getCurrentPosition(getCoords);
 
-			navigator.geolocation.getCurrentPosition(getCoords);
-			function getCoords(position) {				
-				searchCoords(position.coords.latitude, position.coords.longitude, 0);
-			}
+		function getCoords(position) {				
+			searchCoords(position.coords.latitude, position.coords.longitude, 0);
+		}
+	});
 
-		});
+	$(".hero").on("click", ".put-classes-here", function() {
+		$("#inputs").empty();
+		populateCampsiteInfo(this.getAttribute("data-facilityID"));
+	})
 });
 
 // Function to search campsites in a specific state
@@ -83,7 +91,6 @@ function searchState(state, offset) {
 		method: "GET",
 		crossDomain: true
 	}).then(function(facilities) {
-		console.log(facilities);
 		var rec = facilities.RECDATA;
 		var meta = facilities.METADATA;
 		
@@ -140,12 +147,29 @@ function filterForCampsites(rec) {
 	for (var i = 0; i < rec.length; i++) {
 		if (rec[i].FacilityTypeDescription === "Campground") {
 	
-			// Replace placeholder-div with list target div
-			$("#placeholder-div").append($("<article>").addClass("put-classes-here")
+			$(".hero").append($("<article>").addClass("put-classes-here")
 													   .attr("data-facilityID", rec[i].FacilityID)
 													   .text(rec[i].FacilityName));
 		}
 	}
+}
+
+function populateCampsiteInfo(identification) {
+	$.ajax({
+		url: "https://ridb.recreation.gov/api/v1/facilities/" + identification + "?full=true&apikey=" + ridbApiKey,
+		method: "GET",
+		crossDomain: true
+	}).then(function(campground) {
+		console.log(campground);
+		$(".hero").html("<h1 class=\"title is-large\">" + campground.FacilityName + "</h1>");
+
+		$(".hero").append($("<p>").html(campground.FacilityDescription));
+
+		var addr = campground.FACILITYADDRESS[0];
+		$(".hero").append($("<p>").text("Address: " + addr.FacilityStreetAddress1 + " " + addr.AddressStateCode + ", " + addr.AddressCountryCode + " " + addr.PostalCode));
+
+		$(".hero").append($("<p>").html("Phone: " + campground.FacilityPhone + "    Online At: <a href=\"" + campground.LINK[0].URL + "\">" + campground.LINK[0].URL + "</a>"));
+	})
 }
 
 // Creat State Dropdown Function  
