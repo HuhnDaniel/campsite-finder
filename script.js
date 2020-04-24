@@ -12,12 +12,14 @@ jQuery.ajaxPrefilter(function(options) {
 $(document).ready(function() {
 
 	$("[href=\"#index\"]").click(function() {
-		$("#inputs").empty();
+		$("#results").empty().attr('class', 'is-hidden');
+		$('#inputs').empty(); 
 		$(".hero").html("<h1 class=\"title is-large\">Campsite of the Day</h1>");
 	})
 
 	$("[href=\"#state\"]").click(function() {
-		$("#inputs").empty();
+		$("#results").empty().attr('class', 'is-visible');
+		$('#inputs').empty(); 
 		$(".hero").html("<h1 class=\"title is-large\">Search by State</h1>");
 
 		renderStateDropdown();
@@ -25,7 +27,8 @@ $(document).ready(function() {
 	});
 	
 	$("[href=\"#name\"]").click(function() {
-		$("#inputs").empty();
+		$("#results").empty().attr('class', 'is-visible');
+		$('#inputs').empty(); 
 		$(".hero").html("<h1 class=\"title is-large\">Search by name</h1>");
 
 		renderInputName();
@@ -33,7 +36,8 @@ $(document).ready(function() {
 	});
 
 	$("[href=\"#city\"]").click(function() {
-		$("#inputs").empty();
+		$("#results").empty().attr('class', 'is-visible');
+		$('#inputs').empty(); 
 		$(".hero").html("<h1 class=\"title is-large\">Search by City</h1>");
 
 		renderInputCity();
@@ -69,7 +73,8 @@ $(document).ready(function() {
 	});
 	
 	$("[href=\"#near-me\"]").click(function() {
-		$("#inputs").empty();
+		$("#results").empty().attr('class', 'is-visible');
+		$('#inputs').empty(); 
 		$(".hero").html("<h1 class=\"title is-large\">Campsites Near You</h1>");
 		navigator.geolocation.getCurrentPosition(getCoords);
 
@@ -147,7 +152,7 @@ function filterForCampsites(rec) {
 	for (var i = 0; i < rec.length; i++) {
 		if (rec[i].FacilityTypeDescription === "Campground") {
 	
-			$(".hero").append($("<article>").addClass("put-classes-here")
+			$("#results").append($("<li>").addClass("column is-5")
 													   .attr("data-facilityID", rec[i].FacilityID)
 													   .text(rec[i].FacilityName));
 		}
@@ -174,16 +179,18 @@ function populateCampsiteInfo(identification) {
 
 // Creat State Dropdown Function  
 function renderStateDropdown() {
-	$("<select>").addClass("select")
-		.attr("id","stateSelect")
-		.appendTo("#inputs");
+	var input = $("<select>").addClass("select")
+		.attr("id","stateSelect");
 
 		var states = ["AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"];
 		for (var i = 0; i < states.length; i++) {
 			$("<option>").text(states[i])
 				.attr("value", states[i])
-				.appendTo($("#stateSelect"));
+				.appendTo($(input));
 		}
+	var field = $('<div class="field">');
+	field.html('<label class="label">Select a State</label>'); 
+	field.append(input).appendTo('#inputs'); 
 }
 
 function renderSubmitBtn() {
@@ -196,17 +203,22 @@ function renderSubmitBtn() {
 
 //  Create Name Input Function
 function renderInputName() {
-	$("<input>").addClass("input")
+	var input = $("<input>").addClass("input")
 		.attr("type","text")
 		.attr("placeholder","Search by Name")
-		.attr("id","nameInput")
-		.appendTo("#inputs");
+		.attr("id","nameInput");
+	var field = $('<div class="field">');
+	field.html('<label class="label">Name of Campsite</label>'); 
+	field.append(input).appendTo('#inputs'); 
+
 }
 
 function renderInputCity() {
-	$("<input>").addClass("input")
+	var input = $("<input>").addClass("input")
 		.attr("type","text")
 		.attr("placeholder","Search by City")
-		.attr("id","cityInput")
-		.appendTo("#inputs");
+		.attr("id","cityInput");
+	var field = $('<div class="field">');
+	field.html('<label class="label">City</label>'); 
+	field.append(input).appendTo('#inputs'); 
 }

@@ -7114,6 +7114,10 @@ label.panel-block {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem; }
 
+.container {
+  margin: 0 auto;
+  height: auto; }
+
 #tablet {
   margin: auto 0;
   background-color: #A6ADB4; }
@@ -7168,9 +7172,9 @@ label.panel-block {
 
 .footer {
   background-color: #A6ADB4;
-  position: fixed;
-  bottom: 0;
   width: 100%;
+  position: absolute;
+  bottom: 0;
   margin: 0 auto;
   padding: 1em; }
   .footer img {
@@ -7178,6 +7182,31 @@ label.panel-block {
     height: auto; }
   .footer .navbar-menu {
     border: none; }
+
+.hero h1 {
+  margin: 0 auto;
+  color: #6E2727; }
+
+#inputs {
+  margin: auto 0;
+  width: fit-content;
+  position: relative;
+  left: 20%; }
+  #inputs .field {
+    margin: 0 auto; }
+
+#results {
+  background-color: #707070;
+  color: #EBEDED;
+  width: 15em;
+  height: 15em;
+  position: absolute;
+  border: #A6ADB4 1px solid;
+  right: 20%;
+  top: 30%;
+  margin: 0;
+  padding: 2em;
+  padding-top: 1em; }
 
 @keyframes spinAround {
   from {
