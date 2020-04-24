@@ -167,6 +167,8 @@ function populateCampsiteInfo(identification) {
 
 		var addr = campground.FACILITYADDRESS[0];
 		$(".hero").append($("<p>").text("Address: " + addr.FacilityStreetAddress1 + " " + addr.AddressStateCode + ", " + addr.AddressCountryCode + " " + addr.PostalCode));
+
+		$(".hero").append($("<p>").html("Phone: " + campground.FacilityPhone + "    Online At: <a href=\"" + campground.LINK[0].URL + "\">" + campground.LINK[0].URL + "</a>"));
 	})
 }
 
