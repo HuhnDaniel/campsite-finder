@@ -1,4 +1,5 @@
-var apiKey = "dd9db9b8-cd8a-43be-906b-60b309490362";
+var ridbApiKey = "dd9db9b8-cd8a-43be-906b-60b309490362";
+var openweathermapApiKey = "40c8ddef7d6dcf0fa45ee70ad6205851";
 
 // Prefilter to allow access to protected HTTPS urls
 // In ajax calls, add parameter crossDomain: true to enable
@@ -10,17 +11,23 @@ jQuery.ajaxPrefilter(function(options) {
 
 $(document).ready(function() {
 
-	$("[href=\"#state\"]").click(function(){
+	$("[href=\"#state\"]").click(function() {
 		$("#inputs").empty();
 		renderStateDropdown();
 		renderSubmitBtn();
 	});
 	
-	$("[href=\"#name\"]").click(function(){
+	$("[href=\"#name\"]").click(function() {
 		$("#inputs").empty();
-		renderInput();
+		renderInputName();
 		renderSubmitBtn();
 	});
+
+	$("[href=\"#city\"]").click(function() {
+		$("#inputs").empty();
+		renderInputCity();
+		renderSubmitBtn();
+	})
 
 	// Replace state with query selector for dropdown
 	// var state = "KS";
@@ -30,25 +37,32 @@ $(document).ready(function() {
 	// Replace placeholderBtn with submit button ID
 	$("#inputs").on("submit", function(e) {
 		e.preventDefault();
-		var state = $("#stateSelect").val();
 		
-		$("#placeholder-div").empty();
-		searchState(state, 0);
-	});
+		if ($("#nameInput").val()) {
+			var name = $("#nameInput").val();
+		
+			$("#placeholder-div").empty();
+			searchParkName(name, 0);
 
-	$("#inputs").on("submit", function(e) {
-		e.preventDefault();
-		var name = $("#nameInput").val();
+		} else if ($("#cityInput").val()) {
+			var city = $("#cityInput").val();
 		
-		$("#placeholder-div").empty();
-		searchParkName(name, 0);
+			$("#placeholder-div").empty();
+			searchCity(city, 0);
+
+		} else {
+			var state = $("#stateSelect").val();
+			
+			$("#placeholder-div").empty();
+			searchState(state, 0);
+		}
 	});
 });
 
 // Function to search campsites in a specific state
 function searchState(state, offset) {
 	$.ajax({
-		url: "https://ridb.recreation.gov/api/v1/facilities?state=" + state + "&offset=" + offset + "&full=true&apikey=" + apiKey,
+		url: "https://ridb.recreation.gov/api/v1/facilities?state=" + state + "&offset=" + offset + "&full=true&apikey=" + ridbApiKey,
 		method: "GET",
 		crossDomain: true
 	}).then(function(facilities) {
@@ -70,7 +84,7 @@ function searchState(state, offset) {
 // Function to search campsites with name/keyword/description/stay limit
 function searchParkName(name, offset) {
 	$.ajax({
-		url: "https://ridb.recreation.gov/api/v1/facilities?query=" + name + "&offset=" + offset + "&full=true&apikey=" + apiKey,
+		url: "https://ridb.recreation.gov/api/v1/facilities?query=" + name + "&offset=" + offset + "&full=true&apikey=" + ridbApiKey,
 		method: "GET",
 		crossDomain: true
 	}).then(function(facilities) {
@@ -87,6 +101,10 @@ function searchParkName(name, offset) {
 	})
 }
 
+function searchCity(city, offset) {
+	console.log(city);
+}
+
 function filterForCampsites(rec) {
 	for (var i = 0; i < rec.length; i++) {
 		if (rec[i].FacilityTypeDescription === "Campground") {
@@ -100,7 +118,7 @@ function filterForCampsites(rec) {
 }
 
 // Creat State Dropdown Function  
-function renderStateDropdown(){
+function renderStateDropdown() {
 	$("<select>").addClass("select")
 		.attr("id","stateSelect")
 		.appendTo("#inputs");
@@ -113,7 +131,7 @@ function renderStateDropdown(){
 		}
 }
 
-function renderSubmitBtn(){
+function renderSubmitBtn() {
 	$("<button>").addClass("button")
 		.attr("type","submit")
 		.attr("id","submitBtn")
@@ -122,10 +140,18 @@ function renderSubmitBtn(){
 }
 
 //  Create Name Input Function
-function renderInput(){
+function renderInputName() {
 	$("<input>").addClass("input")
 		.attr("type","text")
 		.attr("placeholder","Search by Name")
 		.attr("id","nameInput")
+		.appendTo("#inputs");
+}
+
+function renderInputCity() {
+	$("<input>").addClass("input")
+		.attr("type","text")
+		.attr("placeholder","Search by City")
+		.attr("id","cityInput")
 		.appendTo("#inputs");
 }
