@@ -1,5 +1,9 @@
-var ridbApiKey = "f768af14-4499-4dee-9ed7-bca0d58fdf85";
+
+var ridbApiKey = "51757596-4204-498b-a768-10846f885937"; 
+// "dd9db9b8-cd8a-43be-906b-60b309490362";
+// "f768af14-4499-4dee-9ed7-bca0d58fdf85";
 // var ridbApiKey = "dd9db9b8-cd8a-43be-906b-60b309490362";
+
 var openweathermapApiKey = "40c8ddef7d6dcf0fa45ee70ad6205851";
 var myListArray = [];
 
@@ -18,34 +22,50 @@ jQuery.ajaxPrefilter(function(options) {
 
 $(document).ready(function() {
 
+
 	$("[href=\"#index\"]").click(function() {
-		$("#results").empty().attr('class', 'is-hidden');
+		$("#results").empty();
+		$('#results-nav').toggle(false);   
+		$("#form-container").toggle(false);
+		$('#index').toggle(true); 
 		$('#inputs').empty(); 
-		$(".hero").html("<h1 class=\"title is-large\">Campsite of the Day</h1>");
+		// $(".hero").html("<h1 class=\"title is-large\">Campsite of the Day</h1>");
 	})
 
 	$("[href=\"#state\"]").click(function() {
-		$("#results").empty().attr('class', 'is-visible');
+		$("#results").empty();
+		$('#results-nav').toggle(true); 
+		$("#form-container").toggle(true);
+		$('#panel-heading').text('Search By State');  
+		$('#index').toggle(false); 
 		$('#inputs').empty(); 
-		$(".hero").html("<h1 class=\"title is-large\">Search by State</h1>");
+		// $(".hero").html("<h1 class=\"title is-large\">Search by State</h1>");
 
 		renderStateDropdown();
 		renderSubmitBtn();
 	});
 	
 	$("[href=\"#name\"]").click(function() {
-		$("#results").empty().attr('class', 'is-visible');
+		$("#results").empty();
+		$('#results-nav').toggle(true);
+		$("#form-container").toggle(true);
+		$('#panel-heading').text('Name Search');  
+		$('#index').toggle(false); 
 		$('#inputs').empty(); 
-		$(".hero").html("<h1 class=\"title is-large\">Search by name</h1>");
+		// $(".hero").html("<h1 class=\"title is-large\">Search by name</h1>");
 
 		renderInputName();
 		renderSubmitBtn();
 	});
 
 	$("[href=\"#city\"]").click(function() {
-		$("#results").empty().attr('class', 'is-visible');
+		$("#results").empty();
+		$('#results-nav').toggle(true); 
+		$("#form-container").toggle(true);
+		$('#panel-heading').text('Search By City');  
+		$('#index').toggle(false); 
 		$('#inputs').empty(); 
-		$(".hero").html("<h1 class=\"title is-large\">Search by City</h1>");
+		// $(".hero").html("<h1 class=\"title is-large\">Search by City</h1>");
 
 		renderInputCity();
 		renderSubmitBtn();
@@ -54,6 +74,8 @@ $(document).ready(function() {
 	// Replace placeholderBtn with submit button ID
 	$("#inputs").on("submit", function(e) {
 		e.preventDefault();
+
+		renderArray = []; 
 		
 		if ($("#nameInput").val()) {
 			var name = $("#nameInput").val();
@@ -77,6 +99,7 @@ $(document).ready(function() {
 			
 			searchState(state, 0);
 		}
+		
 	});
 	
 	// Dragging into mycampsite
@@ -110,9 +133,13 @@ $(document).ready(function() {
 	});
 
 	$("[href=\"#near-me\"]").click(function() {
-		$("#results").empty().attr('class', 'is-visible');
+		$("#results").empty();
+		$('#results-nav').toggle(true); 
+		$("#form-container").toggle(false);
+		$('#panel-heading').text('Campsites Near You'); 
+		$('#index').toggle(false); 
 		$('#inputs').empty(); 
-		$(".hero").html("<h1 class=\"title is-large\">Campsites Near You</h1>");
+		// $(".hero").html("<h1 class=\"title is-large\">Campsites Near You</h1>");
 		navigator.geolocation.getCurrentPosition(getCoords);
 
 		function getCoords(position) {				
@@ -120,8 +147,9 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#results").on("click", ".column", function() {
-		$("#inputs").empty();
+	$("#results").on("click", ".panel-block", function() {
+		$("#form-container").toggle(false);
+		$('#inputs').empty(); 
 		populateCampsiteInfo(this.getAttribute("data-facilityID"));
 	});
 });
@@ -146,9 +174,10 @@ function searchState(state, offset) {
 		}
 	});
 }
-
+var renderArray = []; // To hold all names without refresh
 // Function to search campsites with name/keyword/description/stay limit
 function searchParkName(name, offset) {
+
 	$.ajax({
 		url: "https://ridb.recreation.gov/api/v1/facilities?query=" + name + "&offset=" + offset + "&full=true&apikey=" + ridbApiKey,
 		method: "GET",
@@ -164,6 +193,7 @@ function searchParkName(name, offset) {
 			searchParkName(name, offset);
 		}
 	})
+	
 }
 
 // Function to search campsites near input city
@@ -175,8 +205,9 @@ function searchCoords(lat, lon, offset) {
 	}).then(function(facilities) {
 		var rec = facilities.RECDATA;
 		var meta = facilities.METADATA;
-
+		count = 1;  
 		filterForCampsites(rec);
+		
 		
 		if ((meta.RESULTS.CURRENT_COUNT + offset) < meta.RESULTS.TOTAL_COUNT) {
 			offset += meta.SEARCH_PARAMETERS.LIMIT;
@@ -185,17 +216,46 @@ function searchCoords(lat, lon, offset) {
 	})
 }
 
-function filterForCampsites(rec) {
+
+function filterForCampsites(rec) { 
+	var array = []; 
 	for (var i = 0; i < rec.length; i++) {
+		var obj = {}; 
 		if (rec[i].FacilityTypeDescription === "Campground") {
-	
-			$("#results").append($("<li>").addClass("column is-5")
-													   .attr("data-facilityID", rec[i].FacilityID)
-													   .text(rec[i].FacilityName));
+			obj.name = toTitleCase(rec[i].FacilityName); 
+			obj.id = rec[i].FacilityID;
+			console.log(obj); 
+			 
 		}
-	}
+		if (Object.keys(obj).length === 0) {
+			continue; 
+		} 
+				renderArray.push(obj); 
+				console.log(array);
+
+				
+
+	}			
+			
+				renderResults(renderArray);
+}	
+
+
+function renderResults(array){
+	renderArray = array; 
+	$('#results').empty(); 
+		$(renderArray).each(function(index){
+			var data = $("<a>").addClass("panel-block")
+													   .attr("data-facilityID", renderArray[index].id)
+													   .text(renderArray[index].name);
+
+					$('#results').append(data); 
+			
+			})
+
 }
 
+	
 function populateCampsiteInfo(identification) {
 	$.ajax({
 		url: "https://ridb.recreation.gov/api/v1/facilities/" + identification + "?full=true&apikey=" + ridbApiKey,
@@ -205,7 +265,8 @@ function populateCampsiteInfo(identification) {
 		console.log(campground);
 		$("#results").empty();
 
-		$(".hero").html("<h1 class=\"title is-large dragItem\" data-facilityID=\"" + campground.FacilityID + "\">" + campground.FacilityName + "</h1>");
+		// $(".hero").html("<h1 class=\"title is-large\">" + campground.FacilityName + "</h1>");
+		$('#panel-heading').text(campground.FacilityName); 
 
 		$("#results").append($("<p>").html(campground.FacilityDescription));
 
@@ -266,11 +327,11 @@ function renderStateDropdown() {
 }
 
 function renderSubmitBtn() {
-	$("<button>").addClass("button")
+	$("<button class='is-inline'>").addClass("button")
 		.attr("type","submit")
 		.attr("id","submitBtn")
 		.text("Submit")
-		.appendTo("#inputs");
+		.appendTo(".field");
 }
 
 //  Create Name Input Function
@@ -294,3 +355,13 @@ function renderInputCity() {
 	field.html('<label class="label">City</label>'); 
 	field.append(input).appendTo('#inputs'); 
 }
+
+
+//Consistent Title Case for Names
+function toTitleCase(str) {
+	var lcStr = str.toLowerCase();
+	return lcStr.replace(/(?:^|\s)\w/g, function(match) {
+		return match.toUpperCase();
+	});
+}
+
