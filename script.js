@@ -1,4 +1,5 @@
-var ridbApiKey = "dd9db9b8-cd8a-43be-906b-60b309490362";
+var ridbApiKey = "f768af14-4499-4dee-9ed7-bca0d58fdf85";
+// var ridbApiKey = "dd9db9b8-cd8a-43be-906b-60b309490362";
 var openweathermapApiKey = "40c8ddef7d6dcf0fa45ee70ad6205851";
 
 // Prefilter to allow access to protected HTTPS urls
@@ -167,7 +168,7 @@ function populateCampsiteInfo(identification) {
 	}).then(function(campground) {
 		console.log(campground);
 		$("#results").empty();
-		
+
 		$(".hero").html("<h1 class=\"title is-large\">" + campground.FacilityName + "</h1>");
 
 		$("#results").append($("<p>").html(campground.FacilityDescription));
@@ -176,6 +177,27 @@ function populateCampsiteInfo(identification) {
 		$("#results").append($("<p>").text("Address: " + addr.FacilityStreetAddress1 + " " + addr.AddressStateCode + ", " + addr.AddressCountryCode + " " + addr.PostalCode));
 
 		$("#results").append($("<p>").html("Phone: " + campground.FacilityPhone + "    Online At: <a href=\"" + campground.LINK[0].URL + "\">" + campground.LINK[0].URL + "</a>"));
+
+		campgroundWeather(campground.FacilityLatitude, campground.FacilityLongitude);
+	});
+}
+
+function campgroundWeather(lat, lon) {
+	$.ajax({
+		url: "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + openweathermapApiKey,
+		method: "GET"
+	}).then(function(weatherObj) {
+		console.log(weatherObj);
+
+		$("#results").append($("<h2>").text("7 Day Forecast"));
+		var weatherDiv = $("<div>");
+		
+		for (var i = 0; i < weatherObj.daily.length; i++) {
+			weatherDiv.append($("<p>").text(moment.unix(weatherObj.daily[i].dt).format("M/D/YYYY")));
+			weatherDiv.append($("<img>").attr("src", "http://openweathermap.org/img/wn/" + weatherObj.daily[i].weather[0].icon + ".png"));
+			weatherDiv.append($("<p>").text("Temp: " + (Math.round(weatherObj.daily[i].temp.day * 10) / 10) + "° F"));
+		}
+		$("#results").append(weatherDiv);
 	})
 }
 
