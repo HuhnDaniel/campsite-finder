@@ -3,6 +3,11 @@ var ridbApiKey = "f768af14-4499-4dee-9ed7-bca0d58fdf85";
 var openweathermapApiKey = "40c8ddef7d6dcf0fa45ee70ad6205851";
 var myListArray = [];
 
+if (localStorage.getItem("data") !== null) {
+	myListArray = localStorage.getItem("data").split(",");
+}
+console.log(myListArray);
+
 // Prefilter to allow access to protected HTTPS urls
 // In ajax calls, add parameter crossDomain: true to enable
 jQuery.ajaxPrefilter(function(options) {
@@ -76,8 +81,8 @@ $(document).ready(function() {
 	
 	// Dragging into mycampsite
 	$(".hero").on("click", ".dragItem", function(){
-		var listName = $(this).text();
-		console.log(listName);
+		var listName = $(this).attr("data-facilityID");
+		console.log(this);
 
 		$(".dragItem").draggable({
 			snap: ".dropSave" 
@@ -100,7 +105,7 @@ $(document).ready(function() {
 		userData = JSON.parse(userData);
 
 		for (var i=0; i< userData.length;i++){
-		searchParkName(userData[i], 0);
+			searchParkID(userData[i]);
 		}
 	});
 
@@ -200,7 +205,7 @@ function populateCampsiteInfo(identification) {
 		console.log(campground);
 		$("#results").empty();
 
-		$(".hero").html("<h1 class=\"title is-large dragItem\">" + campground.FacilityName + "</h1>");
+		$(".hero").html("<h1 class=\"title is-large dragItem\" data-facilityID=\"" + campground.FacilityID + "\">" + campground.FacilityName + "</h1>");
 
 		$("#results").append($("<p>").html(campground.FacilityDescription));
 
@@ -210,6 +215,18 @@ function populateCampsiteInfo(identification) {
 		$("#results").append($("<p>").html("Phone: " + campground.FacilityPhone + "    Online At: <a href=\"" + campground.LINK[0].URL + "\">" + campground.LINK[0].URL + "</a>"));
 
 		campgroundWeather(campground.FacilityLatitude, campground.FacilityLongitude);
+	});
+}
+
+function searchParkID(identification) {
+	$.ajax({
+		url: "https://ridb.recreation.gov/api/v1/facilities/" + identification + "?full=true&apikey=" + ridbApiKey,
+		method: "GET",
+		crossDomain: true
+	}).then(function(campground) {
+		$("#results").append($("<li>").addClass("column is-5")
+													   .attr("data-facilityID", campground.FacilityID)
+													   .text(campground.FacilityName));
 	});
 }
 
