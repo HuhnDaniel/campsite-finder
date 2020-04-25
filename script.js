@@ -1,7 +1,11 @@
+
 var ridbApiKey = "51757596-4204-498b-a768-10846f885937"; 
 // "dd9db9b8-cd8a-43be-906b-60b309490362";
 // "f768af14-4499-4dee-9ed7-bca0d58fdf85";
+// var ridbApiKey = "dd9db9b8-cd8a-43be-906b-60b309490362";
+
 var openweathermapApiKey = "40c8ddef7d6dcf0fa45ee70ad6205851";
+var myListArray = [];
 
 // Prefilter to allow access to protected HTTPS urls
 // In ajax calls, add parameter crossDomain: true to enable
@@ -93,6 +97,36 @@ $(document).ready(function() {
 		
 	});
 	
+	// Dragging into mycampsite
+	$(".hero").on("click", ".dragItem", function(){
+		var listName = $(this).text();
+		console.log(listName);
+
+		$(".dragItem").draggable({
+			snap: ".dropSave" 
+		});
+		// Just using footer for now since we dont have any place to put in yet
+		$(".footer").droppable({
+		  drop: function( event, ui ) {
+			myListArray.unshift(listName);
+			myListArray = Array.from(new Set(myListArray));
+			localStorage.setItem("data",JSON.stringify(myListArray));	
+			console.log(myListArray);
+		  }
+		});
+	});
+	// My Campsite display pulling from localStorage
+	$("[href=\"#my-campsites\"]").click(function() {
+		$("#results").empty().attr('class', 'is-visible');
+		$(".hero").html("<h1 class=\"title is-large\">My Campsites</h1>");
+		var userData = localStorage.getItem("data");
+		userData = JSON.parse(userData);
+
+		for (var i=0; i< userData.length;i++){
+		searchParkName(userData[i], 0);
+		}
+	});
+
 	$("[href=\"#near-me\"]").click(function() {
 		$("#results").empty();
 		$('#results-nav').toggle(true); 
@@ -112,7 +146,7 @@ $(document).ready(function() {
 		$("#form-container").toggle(false);
 		$('#inputs').empty(); 
 		populateCampsiteInfo(this.getAttribute("data-facilityID"));
-	})
+	});
 });
 
 // Function to search campsites in a specific state
@@ -228,6 +262,7 @@ function populateCampsiteInfo(identification) {
 
 		// $(".hero").html("<h1 class=\"title is-large\">" + campground.FacilityName + "</h1>");
 		$('#panel-heading').text(campground.FacilityName); 
+
 
 		$("#results").append($("<p>").html(campground.FacilityDescription));
 
