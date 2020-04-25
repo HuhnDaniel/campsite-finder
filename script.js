@@ -1,4 +1,4 @@
-var ridbApiKey = "dd9db9b8-cd8a-43be-906b-60b309490362";
+var ridbApiKey = "f768af14-4499-4dee-9ed7-bca0d58fdf85";
 var openweathermapApiKey = "40c8ddef7d6dcf0fa45ee70ad6205851";
 
 // Prefilter to allow access to protected HTTPS urls
@@ -149,14 +149,20 @@ function searchCoords(lat, lon, offset) {
 }
 
 function filterForCampsites(rec) {
+	var name = ''; 
+	var array = [];
 	for (var i = 0; i < rec.length; i++) {
 		if (rec[i].FacilityTypeDescription === "Campground") {
-	
-			$("#results").append($("<li>").addClass("column is-5")
-													   .attr("data-facilityID", rec[i].FacilityID)
-													   .text(rec[i].FacilityName));
+			name = rec[i].FacilityName; 
 		}
+		array.push(name); 
+		console.log(array); 
 	}
+	$(array).each(function(index){
+			$("#results").append($("<li>").addClass("column is-5")
+													   .attr("data-facilityID", array[index].FacilityID)
+													   .text(array[index].FacilityName));
+		})
 }
 
 function populateCampsiteInfo(identification) {
