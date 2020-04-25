@@ -1,4 +1,6 @@
-var ridbApiKey = "f768af14-4499-4dee-9ed7-bca0d58fdf85";
+var ridbApiKey = "51757596-4204-498b-a768-10846f885937"; 
+// "dd9db9b8-cd8a-43be-906b-60b309490362";
+// "f768af14-4499-4dee-9ed7-bca0d58fdf85";
 var openweathermapApiKey = "40c8ddef7d6dcf0fa45ee70ad6205851";
 
 // Prefilter to allow access to protected HTTPS urls
@@ -164,7 +166,7 @@ function searchCoords(lat, lon, offset) {
 	}).then(function(facilities) {
 		var rec = facilities.RECDATA;
 		var meta = facilities.METADATA;
-
+		count = 1;  
 		filterForCampsites(rec);
 		
 		
@@ -176,41 +178,44 @@ function searchCoords(lat, lon, offset) {
 }
 
 
-function filterForCampsites(rec) {
+function filterForCampsites(rec) { 
+	var array = []; 
 	for (var i = 0; i < rec.length; i++) {
 		var obj = {}; 
 		if (rec[i].FacilityTypeDescription === "Campground") {
 			obj.name = toTitleCase(rec[i].FacilityName); 
-			obj.id = rec[i].FacilityID; 
+			obj.id = rec[i].FacilityID;
+			console.log(obj); 
+			 
 		}
-		// Filtering out empty objects
-		if (Object.keys(obj).length === 0 || renderArray.includes(obj)) {
+		if (Object.keys(obj).length === 0) {
 			continue; 
-		} else {
-			renderArray.push(obj); 
-			continue; 
+		} 
+				renderArray.push(obj); 
+				console.log(array);
+
+				
+
+	}			
 			
-		}	
-	}
-	console.log(renderArray); 
-	renderResults();  
+				renderResults(renderArray);
 }	
 
 
-function renderResults(renderArray){
-	var c = 0; 
-	$(renderArray).each(function(index){
-		console.log(renderArray[index]); 
-		if (c >= 10){
-			return false;
-		} else {
-			$("#results").append($("<a>").addClass("panel-block")
+function renderResults(array){
+	renderArray = array; 
+	$('#results').empty(); 
+		$(renderArray).each(function(index){
+			var data = $("<a>").addClass("panel-block")
 													   .attr("data-facilityID", renderArray[index].id)
-													   .text(renderArray[index].name));
-			c+1; 
-		}
-		})
+													   .text(renderArray[index].name);
+
+					$('#results').append(data); 
+			
+			})
+
 }
+
 	
 function populateCampsiteInfo(identification) {
 	$.ajax({

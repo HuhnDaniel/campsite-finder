@@ -7193,15 +7193,38 @@ label.panel-block {
 
 .panel {
   margin-top: 3em;
-  background-color: #EBEDED; }
-  .panel #panel-heading {
+  height: 30em;
+  background-color: #EBEDED;
+  overflow-x: hidden;
+  overflow-y: scroll; }
+  .panel .panel-heading {
     background-color: #132B39;
-    color: white; }
+    color: white;
+    position: absolute;
+    display: flex;
+    width: 100%;
+    padding-bottom: 0; }
+    .panel .panel-heading #form-container {
+      margin: auto 0;
+      margin-left: -5.3em;
+      margin-top: 1em;
+      background-color: #132B39;
+      display: block; }
+      .panel .panel-heading #form-container label {
+        color: white; }
+      .panel .panel-heading #form-container .input {
+        margin-right: 1em; }
+      .panel .panel-heading #form-container .select {
+        margin-right: 1em; }
+      .panel .panel-heading #form-container .button {
+        margin: 0 auto; }
   .panel .panel-block {
     background-color: #EBEDED; }
 
-#results a {
-  text-transform: capitalize; }
+#results {
+  margin-top: 10.5em; }
+  #results a {
+    text-transform: capitalize; }
 
 @keyframes spinAround {
   from {

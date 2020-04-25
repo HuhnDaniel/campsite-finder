@@ -142,10 +142,36 @@ $input-background-color: white;
 
 .panel {
     margin-top: 3em; 
+    height: 30em; 
     background-color: $off-white;
-    #panel-heading {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    .panel-heading {
         background-color: #132B39;
         color: white;
+        position: absolute;
+        display: flex;
+        width: 100%;
+        padding-bottom: 0;
+        #form-container {
+            margin: auto 0;
+            margin-left: -5.3em;  
+            margin-top: 1em;
+            background-color: $navy-blue;
+            display: block;
+            label {
+                color: white; 
+            }
+            .input {
+                margin-right: 1em; 
+            }
+            .select {
+                margin-right: 1em;
+            }
+            .button {
+                margin: 0 auto;
+            }
+        }
     }
     .panel-block {
         background-color: $off-white;
@@ -153,7 +179,9 @@ $input-background-color: white;
 }
 
 
+
 #results {
+    margin-top: 10.5em;
     a {
         text-transform: capitalize;
     }
