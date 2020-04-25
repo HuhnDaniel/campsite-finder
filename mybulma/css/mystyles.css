@@ -7170,12 +7170,16 @@ label.panel-block {
   #desktop .navbar-dropdown a {
     font-size: 160%; }
 
+.input {
+  margin-bottom: 1em; }
+
 .footer {
   background-color: #A6ADB4;
   width: 100%;
-  position: absolute;
+  position: relative;
   bottom: 0;
   margin: 0 auto;
+  margin-top: 30em;
   padding: 1em; }
   .footer img {
     width: 7em;
@@ -7187,26 +7191,17 @@ label.panel-block {
   margin: 0 auto;
   color: #6E2727; }
 
-#inputs {
-  margin: auto 0;
-  width: fit-content;
-  position: relative;
-  left: 20%; }
-  #inputs .field {
-    margin: 0 auto; }
+.panel {
+  margin-top: 3em;
+  background-color: #EBEDED; }
+  .panel #panel-heading {
+    background-color: #132B39;
+    color: white; }
+  .panel .panel-block {
+    background-color: #EBEDED; }
 
-#results {
-  background-color: #707070;
-  color: #EBEDED;
-  width: 15em;
-  height: 15em;
-  position: absolute;
-  border: #A6ADB4 1px solid;
-  right: 20%;
-  top: 30%;
-  margin: 0;
-  padding: 2em;
-  padding-top: 1em; }
+#results a {
+  text-transform: capitalize; }
 
 @keyframes spinAround {
   from {
@@ -7470,7 +7465,7 @@ th {
     text-align: left; }
 
 html {
-  background-color: #A99EA1;
+  background-color: #dbdbdb;
   font-size: 16px;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;

@@ -74,7 +74,7 @@
     </nav>
 
     
-    <div id="index">
+ <div id="index" class="is-visible">
         <section class="hero column">
             <h1 class="title is-large">
                 Campsite of the Day
@@ -82,12 +82,23 @@
         </section>
     </div>
 
-    <!--Made change so this was under page header-->
+    
+      <nav class="panel" style="display: none;" id="results-nav">
+        
+        <p class="panel-heading title" id="panel-heading">
+         </p>
+         <div class="panel-block" id="form-container">
+            <form id="inputs" class="is-inline-flex" type="text"></form>
+         </div>
+        <div class="panel-block is-block" id="results">
 
-    <div id="form-container" class="container is-block">
-      <form id="inputs" class="" type="text"></form>
-      <div id="results" class="is-hidden">
-      </div>
+        </div>
+        <nav class="pagination" role="navigation" aria-label="pagination">
+          <a class="pagination-previous">Previous</a>
+          <a class="pagination-next">Next page</a>
+          <ul class="pagination-list">
+            </ul>
+      </nav>
     </div>
     
 

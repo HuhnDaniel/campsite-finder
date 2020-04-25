@@ -22,7 +22,7 @@ $fullhd-enabled: false;
 
 
 // Update some of Bulma's component variables
-$body-background-color: $red-brown;
+$body-background-color: $grey-lighter;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
@@ -36,7 +36,7 @@ $navbar-item-hover-background-color: $dark-grey;
 $section-padding: 1rem; 
 $footer-background-color: $light-grey;
 $navbar-dropdown-item-hover-color: $crimson;
-
+$input-background-color: white; 
 
 // Custom shit
     .container {
@@ -110,12 +110,17 @@ $navbar-dropdown-item-hover-color: $crimson;
     }
     }
 
+    .input {
+        margin-bottom: 1em;
+    }
+
 .footer {
     background-color: $light-grey;
     width: 100%;
-    position: absolute;
+    position: relative;
     bottom: 0;
     margin: 0 auto;
+    margin-top: 30em;
     padding: 1em; 
     img {
         width: 7em;
@@ -133,29 +138,39 @@ $navbar-dropdown-item-hover-color: $crimson;
     }
 }
 
-#inputs {
-    margin: auto 0;
-    width: fit-content; 
-    position: relative; 
-    left: 20%; 
-    .field {
-        margin: 0 auto;
+
+
+.panel {
+    margin-top: 3em; 
+    background-color: $off-white;
+    #panel-heading {
+        background-color: #132B39;
+        color: white;
+    }
+    .panel-block {
+        background-color: $off-white;
     }
 }
 
+
 #results {
-    background-color: $dark-grey;
-    color: $off-white;
-    width: 15em;
-    height: 15em;
-    position: absolute;
-    border: $light-grey 1px solid;
-    right: 20%; 
-    top: 30%;
-    margin: 0;
-    padding: 2em;
-    padding-top: 1em;
+    a {
+        text-transform: capitalize;
+    }
 }
+
+// #results {
+//     color: $off-white;
+//     width: 15em;
+//     height: 15em;
+//     position: absolute;
+//     border: $light-grey 1px solid;
+//     right: 20%; 
+//     top: 30%;
+//     margin: 0;
+//     padding: 2em;
+//     padding-top: 1em;
+// }
 
 
 
