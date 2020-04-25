@@ -1,6 +1,7 @@
 var ridbApiKey = "f768af14-4499-4dee-9ed7-bca0d58fdf85";
 // var ridbApiKey = "dd9db9b8-cd8a-43be-906b-60b309490362";
 var openweathermapApiKey = "40c8ddef7d6dcf0fa45ee70ad6205851";
+var myListArray = [];
 
 // Prefilter to allow access to protected HTTPS urls
 // In ajax calls, add parameter crossDomain: true to enable
@@ -73,6 +74,25 @@ $(document).ready(function() {
 		}
 	});
 	
+	// Dragging into mycampsite
+	$(".hero").on("click", ".dragItem", function(){
+		var listName = $(this).text();
+		console.log(listName);
+
+		$(".dragItem").draggable({
+			snap: ".dropSave" 
+		});
+		// Just using footer for now since we dont have any place to put in yet
+		$(".footer").droppable({
+		  drop: function( event, ui ) {
+			myListArray.unshift(listName);
+			myListArray = Array.from(new Set(myListArray));
+			localStorage.setItem("date",JSON.stringify(myListArray));	
+			console.log(myListArray);
+		  }
+		});
+	});
+
 	$("[href=\"#near-me\"]").click(function() {
 		$("#results").empty().attr('class', 'is-visible');
 		$('#inputs').empty(); 
@@ -87,7 +107,7 @@ $(document).ready(function() {
 	$("#results").on("click", ".column", function() {
 		$("#inputs").empty();
 		populateCampsiteInfo(this.getAttribute("data-facilityID"));
-	})
+	});
 });
 
 // Function to search campsites in a specific state
@@ -169,7 +189,7 @@ function populateCampsiteInfo(identification) {
 		console.log(campground);
 		$("#results").empty();
 
-		$(".hero").html("<h1 class=\"title is-large\">" + campground.FacilityName + "</h1>");
+		$(".hero").html("<h1 class=\"title is-large dragItem\">" + campground.FacilityName + "</h1>");
 
 		$("#results").append($("<p>").html(campground.FacilityDescription));
 
