@@ -83,7 +83,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$(".hero").on("click", ".put-classes-here", function() {
+	$("#results").on("click", ".column", function() {
 		$("#inputs").empty();
 		populateCampsiteInfo(this.getAttribute("data-facilityID"));
 	})
@@ -166,14 +166,16 @@ function populateCampsiteInfo(identification) {
 		crossDomain: true
 	}).then(function(campground) {
 		console.log(campground);
+		$("#results").empty();
+		
 		$(".hero").html("<h1 class=\"title is-large\">" + campground.FacilityName + "</h1>");
 
-		$(".hero").append($("<p>").html(campground.FacilityDescription));
+		$("#results").append($("<p>").html(campground.FacilityDescription));
 
 		var addr = campground.FACILITYADDRESS[0];
-		$(".hero").append($("<p>").text("Address: " + addr.FacilityStreetAddress1 + " " + addr.AddressStateCode + ", " + addr.AddressCountryCode + " " + addr.PostalCode));
+		$("#results").append($("<p>").text("Address: " + addr.FacilityStreetAddress1 + " " + addr.AddressStateCode + ", " + addr.AddressCountryCode + " " + addr.PostalCode));
 
-		$(".hero").append($("<p>").html("Phone: " + campground.FacilityPhone + "    Online At: <a href=\"" + campground.LINK[0].URL + "\">" + campground.LINK[0].URL + "</a>"));
+		$("#results").append($("<p>").html("Phone: " + campground.FacilityPhone + "    Online At: <a href=\"" + campground.LINK[0].URL + "\">" + campground.LINK[0].URL + "</a>"));
 	})
 }
 
