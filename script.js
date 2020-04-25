@@ -1,8 +1,8 @@
 
-var ridbApiKey = "51757596-4204-498b-a768-10846f885937"; 
+//var ridbApiKey = "51757596-4204-498b-a768-10846f885937"; 
 // "dd9db9b8-cd8a-43be-906b-60b309490362";
 // "f768af14-4499-4dee-9ed7-bca0d58fdf85";
-// var ridbApiKey = "dd9db9b8-cd8a-43be-906b-60b309490362";
+ var ridbApiKey = "dd9db9b8-cd8a-43be-906b-60b309490362";
 
 var openweathermapApiKey = "40c8ddef7d6dcf0fa45ee70ad6205851";
 var myListArray = [];
@@ -123,6 +123,9 @@ $(document).ready(function() {
 	});
 	// My Campsite display pulling from localStorage
 	$("[href=\"#my-campsites\"]").click(function() {
+		$("#inputs").empty();
+		$("#panel-heading").text("");
+		$("#results-nav").toggle(true);
 		$("#results").empty().attr('class', 'is-visible');
 		$(".hero").html("<h1 class=\"title is-large\">My Campsites</h1>");
 		var userData = localStorage.getItem("data");
