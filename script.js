@@ -22,13 +22,14 @@ jQuery.ajaxPrefilter(function(options) {
 
 $(document).ready(function() {
 
-
 	$("[href=\"#index\"]").click(function() {
 		$("#results").empty();
 		$('#results-nav').toggle(false);   
 		$("#form-container").toggle(false);
 		$('#index').toggle(true); 
 		$('#inputs').empty(); 
+
+		
 		// $(".hero").html("<h1 class=\"title is-large\">Campsite of the Day</h1>");
 	})
 
@@ -364,4 +365,5 @@ function toTitleCase(str) {
 		return match.toUpperCase();
 	});
 }
+
 

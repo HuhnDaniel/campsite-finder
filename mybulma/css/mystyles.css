@@ -7221,6 +7221,12 @@ label.panel-block {
   .panel .panel-block {
     background-color: #EBEDED; }
 
+blockquote {
+  text-align: center; }
+
+#index a {
+  color: #6E2727; }
+
 #results {
   margin-top: 10.5em; }
   #results a {
