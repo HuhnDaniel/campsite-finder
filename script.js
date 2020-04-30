@@ -4,6 +4,7 @@
 var ridbApiKey = "dd9db9b8-cd8a-43be-906b-60b309490362";
 var openweathermapApiKey = "40c8ddef7d6dcf0fa45ee70ad6205851";
 var myListArray = [];
+var renderArray = []; // To hold all names without refresh
 
 if (localStorage.getItem("data")) {
 	myListArray = localStorage.getItem("data").split(",");
@@ -70,6 +71,7 @@ $(document).ready(function () {
 
 	$("#inputs").on("submit", function (e) {
 		e.preventDefault();
+		$("#results").empty();
 
 		renderArray = [];
 
@@ -114,7 +116,10 @@ $(document).ready(function () {
 				}
 
 				localStorage.setItem("data", myListArray.toString());
-				console.log(myListArray);
+				var name = $("#campground-name").text();
+				$('#panel-heading').empty().append($("<p>").text(name)
+					.attr("id", "campground-name")
+					.attr("data-facilityID", listID));
 			}
 		});
 	});
@@ -125,7 +130,6 @@ $(document).ready(function () {
 		$("#results-nav").toggle(true);
 		$("#results").empty().attr('class', 'is-visible');
 		$(".hero").html("<h1 class=\"title is-large\">My Campsites</h1>");
-		// myListArray = JSON.parse(myListArray);
 
 		if (localStorage.getItem("data")) {
 			var myListArray = localStorage.getItem("data").split(",");
@@ -144,6 +148,7 @@ $(document).ready(function () {
 		$('#inputs').empty();
 		// $(".hero").html("<h1 class=\"title is-large\">Campsites Near You</h1>");
 		navigator.geolocation.getCurrentPosition(getCoords);
+		renderArray = [];
 
 		function getCoords(position) {
 			searchCoords(position.coords.latitude, position.coords.longitude, 0);
@@ -177,7 +182,7 @@ function searchState(state, offset) {
 		}
 	});
 }
-var renderArray = []; // To hold all names without refresh
+
 // Function to search campsites with name/keyword/description/stay limit
 function searchParkName(name, offset) {
 
@@ -208,20 +213,18 @@ function searchCoords(lat, lon, offset) {
 	}).then(function (facilities) {
 		var rec = facilities.RECDATA;
 		var meta = facilities.METADATA;
-		count = 1;
 		filterForCampsites(rec);
 
 
 		if ((meta.RESULTS.CURRENT_COUNT + offset) < meta.RESULTS.TOTAL_COUNT) {
 			offset += meta.SEARCH_PARAMETERS.LIMIT;
-			searchCity(lat, lon, offset);
+			searchCoords(lat, lon, offset);
 		}
 	})
 }
 
 
 function filterForCampsites(rec) {
-	var array = [];
 	for (var i = 0; i < rec.length; i++) {
 		var obj = {};
 		if (rec[i].FacilityTypeDescription === "Campground") {
