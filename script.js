@@ -84,7 +84,7 @@ $(document).ready(function () {
 			var city = $("#cityInput").val();
 
 			$.ajax({
-				url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + openweathermapApiKey,
+				url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + openweathermapApiKey,
 				method: "GET"
 			}).then(function (weatherData) {
 				lat = weatherData.coord.lat;
@@ -293,7 +293,7 @@ function searchParkID(identification) {
 
 function campgroundWeather(lat, lon) {
 	$.ajax({
-		url: "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + openweathermapApiKey,
+		url: "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + openweathermapApiKey,
 		method: "GET"
 	}).then(function (weatherObj) {
 		console.log(weatherObj);
