@@ -13,6 +13,6 @@
   "dependencies": {
     "bulma": "^0.8.2",
     "node-sass": "^4.13.1",
-    "lodash": ">=4.17.19"
+    "lodash": ">=4.17.21"
   }
 }
